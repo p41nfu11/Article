@@ -5,7 +5,8 @@ function HomeViewModel() {
     self.linkToPost = ko.observable();
 
     self.postArticle = function(){
-    	$.post('/api/article/', self.link, function(res){
+        console.log(self.linkToPost());
+    	$.post('/api/article/', {"link":self.linkToPost()}, function(res){
     		console.log(res);
     	});
     };

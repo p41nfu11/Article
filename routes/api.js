@@ -5,7 +5,7 @@ exports.postArticle = function(req, res){
 	var data = req.body;
     var newArticle = new article();
     newArticle.title = data.title || 'Default title';
-    newArticle.text = data.text || 'Default text';
+    newArticle.link = data.link;
     newArticle.createdDate = data.createdDate || new Date();
     newArticle.userId = req.user._id || 0;
     newArticle.views = 0;
@@ -21,9 +21,10 @@ exports.postArticle = function(req, res){
 
 exports.getArticle = function(req, res){
 	process.nextTick(function(){
-		var query = article.find({});
-		query.exec(function(err, articles){
-			res.send(article[0]);
+		var query = article.findOne({});
+		query.exec(function(err, article){
+			console.log(article);
+			res.send(article);
 		});
 	});
 };
