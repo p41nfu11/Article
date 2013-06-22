@@ -5,15 +5,15 @@ function HomeViewModel() {
     self.linkToPost = ko.observable();
 
     self.postArticle = function(){
-    	$.post('/api/postArticle/', self.link, function(res){
+    	$.post('/api/article/', self.link, function(res){
     		console.log(res);
-    	})
+    	});
     };
 
 	self.getArticle = function(){
-    	$.get('/api/getArticle/', function(res){
+    	$.get('/api/article/', function(res){
     		console.log(res);
-    	})
+    	});
     };    
 
 };
