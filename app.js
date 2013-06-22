@@ -6,7 +6,6 @@
 var express = require('express')
   , routes = require('./routes')
   , api = require('./routes/api')
-  , userApi = require('./routes/userApi')
   , http = require('http')
   , path = require('path');
 
@@ -94,12 +93,13 @@ if ('development' == app.get('env')) {
 
 //ROUTING
 app.get('/', routes.index);
+app.get('/home', routes.home);
 
 app.get('/fbauth', passport.authenticate('facebook', {scope:'email'}));
 
 app.get('/fbauthed', passport.authenticate('facebook',{ 
   failureRedirect: '/',
-  successRedirect: '/lists'
+  successRedirect: '/home'
 }));
 
 app.get('/logout', function(req, res){
@@ -114,7 +114,21 @@ app.get('/error', function(req,res){
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Farticle server listening on port ' + app.get('port'));
 });
+////////////
+var https = require('https');
+var options = {
+  host: 'www.readability.com',
+  path: '/api/content/v1/parser?url=http://www.dn.se/nyheter/varlden/usa-atalar-snowden-for-spioneri/&token=b59491d1a51ae5400f902a3ab9003174d4e9ebd8'
+};
 
+https.get(options, function(res) {
+  console.log('STATUS: ' + res.statusCode);
+  console.log('HEADERS: ' + JSON.stringify(res.headers));
+  console.log(res.socket.parser);
+}).on('error', function(e) {
+  console.log('ERROR: ' + e.message);
+});
+/////////////////
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { return next(); }
     res.redirect('/error');

@@ -1,0 +1,38 @@
+.headImage{
+	background-image:url('../img/head.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+	
+	height: 400px;
+	width: 100%;
+}
+
+.join{
+	height: 50px;
+	background-color: #101010; 
+	padding: 30px;
+	color: #FFFFFF;
+	vertical-align: center;
+}
+
+.pitch{
+	background-color: #808080; 
+	padding: 30px;
+	height: 500px;
+}
+
+.joinButton{
+	float: right;
+}
+
+.frame{
+	background-color: #101010; 
+	padding: 40px;
+	
+}
+
+.secondFrame{
+	background-color: #003366; 
+	padding: 40px;
+	
+}
