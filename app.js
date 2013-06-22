@@ -13,6 +13,8 @@ var app = express();
 
 var mongoose = require('mongoose');
 
+var readability = require("node-readability");
+
 var config = require('./config');
 
 var user = require('./models/user');
@@ -95,18 +97,17 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/home', routes.home);
 
-app.get('/fbauth', passport.authenticate('facebook', {scope:'email'}));
 
+//LOGIN
+app.get('/fbauth', passport.authenticate('facebook', {scope:'email'}));
 app.get('/fbauthed', passport.authenticate('facebook',{ 
   failureRedirect: '/',
   successRedirect: '/home'
 }));
-
 app.get('/logout', function(req, res){
 	req.logOut();
 	res.redirect('/');
 });
-
 app.get('/error', function(req,res){
 	res.send(401,'{err: bad login}');
 });
@@ -114,21 +115,19 @@ app.get('/error', function(req,res){
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Farticle server listening on port ' + app.get('port'));
 });
-////////////
-var https = require('https');
-var options = {
-  host: 'www.readability.com',
-  path: '/api/content/v1/parser?url=http://www.dn.se/nyheter/varlden/usa-atalar-snowden-for-spioneri/&token=b59491d1a51ae5400f902a3ab9003174d4e9ebd8'
-};
 
-https.get(options, function(res) {
-  console.log('STATUS: ' + res.statusCode);
-  console.log('HEADERS: ' + JSON.stringify(res.headers));
-  console.log(res.socket.parser);
-}).on('error', function(e) {
-  console.log('ERROR: ' + e.message);
-});
-/////////////////
+
+//API
+app.post('/api/article/', ensureAuthenticated , api.postArticle);
+app.get('/api/article/', ensureAuthenticated , api.getArticle);
+
+// var readability = require('node-readability');
+
+// readability.read('http://howtonode.org/really-simple-file-uploads', function(err, article) {
+//   console.log(article.getContent());
+// });
+
+
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { return next(); }
     res.redirect('/error');
