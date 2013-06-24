@@ -7,8 +7,9 @@ var articleSchema = new mongoose.Schema({
 	title: String,
 	link: String,
 	createdDate: Date,
+	content: String,
 	poster: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-	questions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Question' }],
+	questions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Question' }]
 });
 
 

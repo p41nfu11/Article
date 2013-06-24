@@ -1,7 +1,7 @@
 extends layout
 
 block content
-	div(class="frame")
+	div(class="frame", data-bind="visible: !articleMode()")
 		div(class="container")
 
 			ul(class="thumbnails")
@@ -26,6 +26,10 @@ block content
 									input(data-bind="value:linkToPost", class="",  placeholder="Link")
 								td
 									a(href="#", class="btn btn-primary", data-bind="click: postArticle") Post
+	div(class="frame", data-bind="visible: articleMode")
+		div(class="container")
+			div(class="article")
+				div(data-bind="html: article")
 
 	script(src='/js/home.js', type='text/javascript')	
 
