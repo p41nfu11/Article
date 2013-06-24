@@ -1,4 +1,3 @@
-// Here's my data model
 function HomeViewModel() {
     self = this;
 
@@ -12,8 +11,10 @@ function HomeViewModel() {
 
     self.postArticle = function(){
         console.log(self.linkToPost());
+        //load
     	$.post('/api/article/', {"link":self.linkToPost()}, function(res){
     		console.log(res);
+            //next view
     	});
     };
 

@@ -6,6 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
   , api = require('./routes/api')
+  , admin = require('./routes/admin')
   , http = require('http')
   , path = require('path');
 
@@ -112,14 +113,20 @@ app.get('/error', function(req,res){
 	res.send(401,'{err: bad login}');
 });
 
+//API
+app.post('/api/article/', ensureAuthenticated , api.postArticle);
+app.get('/api/article/', ensureAuthenticated , api.getArticle);
+app.get('/api/articles/' ,ensureAuthenticated, api.getArticles);
+app.post('/api/removeArticle/', ensureAuthenticated , api.removeArticle);
+
+//Admin
+app.get('/admin/' ,ensureAuthenticated, admin.index);
+
+//Start server
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Farticle server listening on port ' + app.get('port'));
 });
 
-
-//API
-app.post('/api/article/', ensureAuthenticated , api.postArticle);
-app.get('/api/article/', ensureAuthenticated , api.getArticle);
 
 // var readability = require('node-readability');
 

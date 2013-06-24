@@ -4,9 +4,9 @@ var config = require('../config');
 console.log(config);
 
 var questionSchema = new mongoose.Schema({
-	q: String,
+	question: String,
 	createdDate: Date,
-	a: [String],
+	answer: [String],
 	correctAnswer: String,
 	article: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article' }],
 });

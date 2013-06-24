@@ -1,0 +1,17 @@
+extends layout
+
+block content
+	div(class="content")
+		table(data-bind="foreach: articles", class="table table-striped")
+			tr
+				td
+					span(data-bind="text: title")
+				td
+					span(data-bind="text: link")
+				td
+					span(data-bind="text: excerpt")
+				td
+					button(class='btn btn-mini',type='button', data-bind='click:$root.removeArticle')
+						i(class="icon-remove")
+
+	script(src='/js/admin.js', type='text/javascript')	
