@@ -1,29 +1,53 @@
+body{
+	font-family: Italiana, ff-tisa-web-pro, Georgia, Cambria, 'Times New Roman', Times, serif;
+	background-image:url('../img/paper.png');
+}
+
 .headImage{
 	background-image:url('../img/head.png');
     background-size: cover;
     background-repeat: no-repeat;
-	
-	height: 400px;
+	position: absolute;
+	top: 0px;
+	left:0px;
+	height: 100%;
 	width: 100%;
 }
 
 .join{
-	height: 50px;
-	background-color: #101010; 
-	padding: 30px;
+	top: 60%;
+	left: 10%;
+	position: absolute;
 	color: #FFFFFF;
-	vertical-align: center;
+}
+
+.stats{
+	margin-left: 10%;
+	top: 90%;
+	position: absolute;
+	color: #FFFFFF;
+	opacity: 10%;
+	background-color: #000000;	
+}
+
+.pitchHead{
+	top: 53%;
+	left: 10%;
+	position: absolute;
+	color: #FFFFFF;
+}
+.pitchHead .small{
+	color: #FFFFFF;
 }
 
 .pitch{
-	background-color: #808080; 
-	padding: 30px;
-	height: 500px;
+	top: 20%;
+	left: 10%;
+	width:250px;
+	position: absolute;
+	color: #FFFFFF;
 }
 
-.joinButton{
-	float: right;
-}
 
 .frame{
 	background-color: #101010; 
@@ -38,8 +62,14 @@
 }
 
 .article{
-	background-color: #FFFFFF;
+	
 	padding: 50px;
-	font-size:20px;
-	font-family: Giorgia, sans-serif;
+	line-height:150%;
+	font-size: 22px;
+	font-weight: normal;
+}
+
+.box{
+	border-radius:3px;
+	border: 0px;
 }

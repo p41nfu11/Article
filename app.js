@@ -127,14 +127,6 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log('Farticle server listening on port ' + app.get('port'));
 });
 
-
-// var readability = require('node-readability');
-
-// readability.read('http://howtonode.org/really-simple-file-uploads', function(err, article) {
-//   console.log(article.getContent());
-// });
-
-
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { return next(); }
     res.redirect('/error');

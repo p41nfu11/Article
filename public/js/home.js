@@ -2,7 +2,8 @@ function HomeViewModel() {
     self = this;
 
     self.linkToPost = ko.observable();
-    self.article = ko.observable();
+    self.articleTitle = ko.observable();
+    self.articleContent = ko.observable();
     self.articleMode = ko.observable(false);
 
     self.showArticle = function(){
@@ -20,8 +21,8 @@ function HomeViewModel() {
 
 	self.getArticle = function(){
     	$.get('/api/article/', function(res){
-    		self.article(res.content);
-            console.log(res);
+    		self.articleContent(res.content);
+            self.articleTitle(res.title);
             self.articleMode(true);
     	});
     };    

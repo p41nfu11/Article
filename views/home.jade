@@ -1,12 +1,13 @@
 extends layout
 
 block content
-	div(class="frame", data-bind="visible: !articleMode()")
+	div(style="height:60px;")
+	div(data-bind="visible: !articleMode()")
 		div(class="container")
 
 			ul(class="thumbnails")
-				li(class="span6" ,style="background-color:#FFFFFF;")
-					div(class="thumbnail")
+				li(class="span6 box" ,style="background-color:#FFFFFF;")
+					div(class="thumbnail", style="height:200px;")
 						div(class="caption")
 						h3 Read 
 							small get your next article
@@ -15,7 +16,7 @@ block content
 							a(href="#", class="btn btn-primary", data-bind="click: getArticle") Get reading
 
 				li(class="span6" ,style="background-color:#FFFFFF;")
-					div(class="thumbnail")
+					div(class="thumbnail", style="height:200px;")
 						div(class="caption")
 						h3 Post 
 							small burst someone's bubble
@@ -26,10 +27,12 @@ block content
 									input(data-bind="value:linkToPost", class="",  placeholder="Link")
 								td
 									a(href="#", class="btn btn-primary", data-bind="click: postArticle") Post
-	div(class="frame", data-bind="visible: articleMode")
+
+	div(data-bind="visible: articleMode")
 		div(class="container")
 			div(class="article")
-				div(data-bind="html: article")
+				h2(data-bind="text: articleTitle")
+				div(data-bind="html: articleContent")
 
 	script(src='/js/home.js', type='text/javascript')	
 

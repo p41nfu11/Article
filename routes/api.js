@@ -4,20 +4,28 @@ var article = require('../models/article');
 exports.postArticle = function(req, res){
 	var data = req.body;
     var newArticle = new article();
-    newArticle.title = data.link;
+    
     newArticle.link = data.link;
-    newArticle.excerpt = 'excerpt';
+    
     newArticle.createdDate = data.createdDate || new Date();
     newArticle.userId = req.user._id || 0;
     newArticle.views = 0;
 
-    newArticle.save(function(err){
-		if(err){
-			res.send(500);
-			throw err;
-		}
-		console.log("New article " + newArticle.title + " was created");
-		res.send(200, newArticle);
+	console.log("fetching content...");
+	getContent(newArticle, function(data){
+		console.log(data.getTitle());
+		newArticle.title = data.getTitle() || newArticle.link;
+		newArticle.content = data.getContent();
+		newArticle.excerpt = newArticle.content.length > 50 ? newArticle.content.substring(10,40) + "..." : "..."; 
+
+		    newArticle.save(function(err){
+				if(err){
+					res.send(500);
+					throw err;
+				}
+				console.log("New article " + newArticle.title + " was created");
+				res.send(200, newArticle);
+			});	
 	});	
 };
 
@@ -25,19 +33,7 @@ exports.getArticle = function(req, res){
 	process.nextTick(function(){
 		var query = article.findOne({});
 		query.exec(function(err, article){
-			if (!article.content){
-				console.log("fetching content...");
-				getContent(article, function(data){
-					article.content = data.content;
-					article.title = data.title;
-					article.excerpt = data.excerpt;
-					res.send(article);
-				});	
-			}
-			else
-			{
-				res.send(article);
-			}
+			res.send(article);
 		});
 	});
 };
@@ -79,12 +75,12 @@ exports.removeArticle = function(req, res){
 var readability = require('node-readability');
 var getContent = function(articleToFetch, callback){
 	
-	console.log(articleToFetch);
+	console.log("article to fetch: " + articleToFetch);
 	readability.read(articleToFetch.link, function(err, response) {
 		if(err)
 			console.log(err);
 		else
-	  		callback(response.getContent());
+	  		callback(response);
 	});
 }
 
@@ -97,7 +93,7 @@ var delArticles = function(){
 	    else{
 	    	console.log(docs);
 	    	docs.forEach(function(doc){
-	    		if (!doc.excerpt){
+	    		if (!doc.title){
 		    		console.log('found '+ docs.length+'. Deleting...');
 		    		doc.remove();
 		    	}
