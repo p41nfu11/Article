@@ -1,7 +1,9 @@
 
 var article = require('../models/article');
+var saplo = require('../saplo');
 
 exports.postArticle = function(req, res){
+
 	var data = req.body;
     var newArticle = new article();
     

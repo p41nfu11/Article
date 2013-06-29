@@ -1,10 +1,18 @@
 module.exports = {
 	dev:{
 		fb:{
-			appId: '261516923986378',
-			appSecret: '014797a963667002e0d97e0252a63364',
+			appId: 'appId',
+			appSecret: 'appSecret',
 			url: 'http://localhost:5000/'
 		},
+        admins: [
+            'my@facebook.email'
+        ],
+        saplo:{
+            api_key: 'apiKey',
+            secret_key: 'apiSecret',
+            collection_id: 'WeSaveAllOurTextsInSameCollection'
+        },
 		dbUrl: 'mongodb://localhost/farticle'
-	}
+    }
 }

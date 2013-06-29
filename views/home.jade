@@ -34,7 +34,26 @@ block content
 				h2(data-bind="text: articleTitle")
 				div(data-bind="html: articleContent")
 
-	script(src='/js/home.js', type='text/javascript')	
+	div(data-bind="visible: postArticleMode")
+		div(class="container")
+			div(class="questionmMaker article span9")
+				p
+					i
+						b Great,
+						p You have created your bubble. To ensure a total bubble bursting experience for the reader, you have to create some true and false statements for your article.
+				p
+					table(data-bind="foreach: questions")
+						tr
+							td
+								div(class="btn-group")
+									button(class="btn") True
+									button(class="btn") False
+							td
+									input(type="text", placeholder="Make a true or false statment.")
 
-
-	
+				p
+					center Ok, im happy with my questions and i want to
+				p
+					center
+						button(class="btn-large btn-success") Submit
+	script(src='/js/home.js', type='text/javascript')

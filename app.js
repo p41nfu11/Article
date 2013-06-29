@@ -24,7 +24,6 @@ var user = require('./models/user');
 var passport = require('passport'),
 	facebookStrategy = require('passport-facebook').Strategy;
 
-
 //setting for passport
 passport.serializeUser(function(user,done)
 {
@@ -96,7 +95,7 @@ if ('development' == app.get('env')) {
 }
 
 //ROUTING
-app.get('/', routes.index);
+app.get('/', passLander, routes.index);
 app.get('/home', routes.home);
 
 //Admin routes
@@ -141,23 +140,41 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/');
 }
 
+function passLander(req, res, next) {
+    if(req.isAuthenticated()) {
+        res.redirect('/home');
+    }
+    return next();
+}
+
 function ensureAdmin(req, res, next) {
     if (req.isAuthenticated()) { 
 		var query = user.findOne({'_id': req.user._id});
 		query.exec(function(err, u){
+            console.log(config.dev.admins);
 			if (err)
 				conosole.log(err);
 			else if (!u)
 				console.log("no user found");
-			else if (!u.admin)
+            else if(config.dev.admins.indexOf(req.user.email) > -1)
+            {
+                console.log("yey, im admin even if im not");
+                return next();
+            }
+            else if (!u.admin)
 				console.log("user is not admin");
 			else if(u.admin){
 				console.log("user is admin");
 				return next(); 
 			}
-			
-			res.redirect('/');
-		});	
+
+            res.redirect('/');
+		});
+    }
+    else{
+        res.redirect('/');
     }
     
 }
+var firstsaplo = require("./saplo");
+firstsaplo.getUser;
