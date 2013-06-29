@@ -5,7 +5,7 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , api = require('./routes/api')
+  , article = require('./routes/article')
   , admin = require('./routes/admin')
   , http = require('http')
   , path = require('path');
@@ -113,11 +113,11 @@ app.get('/error', function(req,res){
 	res.send(401,'{err: bad login}');
 });
 
-//API
-app.post('/api/article/', ensureAuthenticated , api.postArticle);
-app.get('/api/article/', ensureAuthenticated , api.getArticle);
-app.get('/api/articles/' ,ensureAuthenticated, api.getArticles);
-app.post('/api/removeArticle/', ensureAuthenticated , api.removeArticle);
+//article API
+app.post('/article/article/', ensureAuthenticated , article.postArticle);
+app.get('/article/article/', ensureAuthenticated , article.getArticle);
+app.get('/article/articles/' ,ensureAuthenticated, article.getArticles);
+app.post('/article/removeArticle/', ensureAuthenticated , article.removeArticle);
 
 //Admin
 app.get('/admin/' ,ensureAuthenticated, admin.index);

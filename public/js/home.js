@@ -13,14 +13,14 @@ function HomeViewModel() {
     self.postArticle = function(){
         console.log(self.linkToPost());
         //load
-    	$.post('/api/article/', {"link":self.linkToPost()}, function(res){
+    	$.post('/article/article/', {"link":self.linkToPost()}, function(res){
     		console.log(res);
             //next view
     	});
     };
 
 	self.getArticle = function(){
-    	$.get('/api/article/', function(res){
+    	$.get('/article/article/', function(res){
     		self.articleContent(res.content);
             self.articleTitle(res.title);
             self.articleMode(true);

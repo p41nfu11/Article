@@ -6,7 +6,7 @@ function AdminViewModel() {
     self.articles = ko.observableArray();
 
     self.init = function(){
-    	$.get('/api/articles/', function(response){
+    	$.get('/article/articles/', function(response){
     		response.forEach(function(article){
     			self.articles.push(article);
     		});
@@ -17,7 +17,7 @@ function AdminViewModel() {
 
    
     self.removeArticle = function(article){
-    	$.post('/api/removeArticle/', article, function(response) {
+    	$.post('/article/removeArticle/', article, function(response) {
 			var index = self.articles.indexOf(article);
             self.articles.splice(index, 1);
 		});	

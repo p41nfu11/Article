@@ -11,7 +11,8 @@ var articleSchema = new mongoose.Schema({
 	excerpt: String,
 	poster: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 	questions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Question' }],
-	views: Number
+	views: Number,
+	random: Number
 });
 
 

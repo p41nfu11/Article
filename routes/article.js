@@ -16,7 +16,8 @@ exports.postArticle = function(req, res){
 		console.log(data.getTitle());
 		newArticle.title = data.getTitle() || newArticle.link;
 		newArticle.content = data.getContent();
-		newArticle.excerpt = newArticle.content.length > 50 ? newArticle.content.substring(10,40) + "..." : "..."; 
+		newArticle.random = Math.random();
+		newArticle.excerpt = newArticle.content.length > 50 ? newArticle.content.substring(10,40) + "..." : newArticle.content + "..."; 
 
 		    newArticle.save(function(err){
 				if(err){
@@ -31,9 +32,22 @@ exports.postArticle = function(req, res){
 
 exports.getArticle = function(req, res){
 	process.nextTick(function(){
-		var query = article.findOne({});
-		query.exec(function(err, article){
-			res.send(article);
+		var rand = Math.random();
+
+		var query = article.findOne( { random : { $gte : rand } } );
+		query.exec(function(err, rArticle){
+			if (!rArticle){
+				query = article.findOne( { random : { $lte : rand } } );
+				query.exec(function(err, rArticle){
+					if (rArticle)
+						res.send(rArticle);						
+					else
+						res.send(404);
+				});	
+			}
+			else{
+				res.send(rArticle);						
+			}
 		});
 	});
 };
