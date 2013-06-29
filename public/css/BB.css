@@ -66,6 +66,7 @@ body{
 	font-weight: normal;
 	background-image:url('../img/paper.gif');
 	background-repeat: repeat;
+    box-shadow: 0px 0px 20px #CCC
 }
 
 .box{
