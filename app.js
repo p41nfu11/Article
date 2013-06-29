@@ -155,8 +155,8 @@ function ensureAdmin(req, res, next) {
 				console.log("user is admin");
 				return next(); 
 			}
-			else
-				res.redirect('/');
+			
+			res.redirect('/');
 		});	
     }
     
