@@ -1,6 +1,6 @@
 body{
 	font-family: Italiana, ff-tisa-web-pro, Georgia, Cambria, 'Times New Roman', Times, serif;
-	background-image:url('../img/paper.png');
+	background-color: #ffffff;
 }
 
 .headImage{
@@ -36,6 +36,7 @@ body{
 	position: absolute;
 	color: #FFFFFF;
 }
+
 .pitchHead .small{
 	color: #FFFFFF;
 }
@@ -48,25 +49,23 @@ body{
 	color: #FFFFFF;
 }
 
-
 .frame{
 	background-color: #101010; 
 	padding: 40px;
-	
 }
 
 .secondFrame{
 	background-color: #003366; 
 	padding: 40px;
-	
 }
 
 .article{
-	
 	padding: 50px;
 	line-height:150%;
 	font-size: 22px;
 	font-weight: normal;
+	background-image:url('../img/paper.gif');
+	background-repeat: repeat;
 }
 
 .box{
