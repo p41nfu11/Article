@@ -148,8 +148,11 @@ function passLander(req, res, next) {
 }
 
 function ensureAdmin(req, res, next) {
+	var id = 0;
+	if (req.user && req.user._id)
+		id = req.user._id;
     if (req.isAuthenticated()) { 
-		var query = user.findOne({'_id': req.user._id});
+		var query = user.findOne({'_id': id});
 		query.exec(function(err, u){
             console.log(config.dev.admins);
 			if (err)
@@ -167,9 +170,9 @@ function ensureAdmin(req, res, next) {
 				console.log("user is admin");
 				return next(); 
 			}
-
-            res.redirect('/');
-		});
+			
+			res.redirect('/');
+		});	
     }
     else{
         res.redirect('/');
