@@ -2,6 +2,7 @@ extends layout
 
 block content
 	div(class="content")
+		h3 Articles
 		table(data-bind="foreach: articles", class="table table-striped")
 			tr
 				td
@@ -11,7 +12,20 @@ block content
 				td
 					span(data-bind="text: excerpt")
 				td
-					button(class='btn btn-mini',type='button', data-bind='click:$root.removeArticle')
+					button(class='btn btn-mini btn-danger',type='button', data-bind='click:$root.removeArticle')
 						i(class="icon-remove")
+
+		h3 Users
+		table(data-bind="foreach: users", class="table table-striped")
+			tr
+				td
+					span(data-bind="text: _id")
+				td
+					span(data-bind="text: name")
+				td
+					span(data-bind="text: admin")
+				td
+					button(class='btn btn-mini btn-warning',type='button', data-bind='click:$root.updateUser')
+						i(class="icon-circle-arrow-up")
 
 	script(src='/js/admin.js', type='text/javascript')	

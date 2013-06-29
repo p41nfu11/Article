@@ -6,6 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
   , article = require('./routes/article')
+  , userApi = require('./routes/user')
   , admin = require('./routes/admin')
   , http = require('http')
   , path = require('path');
@@ -98,6 +99,8 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/home', routes.home);
 
+//Admin routes
+app.get('/admin/' ,ensureAdmin, admin.index);
 
 //LOGIN
 app.get('/fbauth', passport.authenticate('facebook', {scope:'email'}));
@@ -119,8 +122,12 @@ app.get('/article/article/', ensureAuthenticated , article.getArticle);
 app.get('/article/articles/' ,ensureAuthenticated, article.getArticles);
 app.post('/article/removeArticle/', ensureAuthenticated , article.removeArticle);
 
-//Admin
-app.get('/admin/' ,ensureAuthenticated, admin.index);
+//user API
+//OPS OPS OPS OPS should be ensureAdmin
+app.post('/user/updateUser/', ensureAdmin , userApi.updateUser);
+app.get('/user/users/', ensureAdmin , userApi.getUsers);
+
+
 
 //Start server
 http.createServer(app).listen(app.get('port'), function(){
@@ -128,7 +135,29 @@ http.createServer(app).listen(app.get('port'), function(){
 });
 
 function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) { return next(); }
-    res.redirect('/error');
+    if (req.isAuthenticated()) { 
+    	return next(); 
+    }
+    res.redirect('/');
 }
 
+function ensureAdmin(req, res, next) {
+    if (req.isAuthenticated()) { 
+		var query = user.findOne({'_id': req.user._id});
+		query.exec(function(err, u){
+			if (err)
+				conosole.log(err);
+			else if (!u)
+				console.log("no user found");
+			else if (!u.admin)
+				console.log("user is not admin");
+			else if(u.admin){
+				console.log("user is admin");
+				return next(); 
+			}
+			else
+				res.redirect('/');
+		});	
+    }
+    
+}

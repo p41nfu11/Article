@@ -53,13 +53,10 @@ exports.getArticle = function(req, res){
 };
 
 exports.getArticles = function(req, res){
-	delArticles();
 	console.log("getArticles");
 	process.nextTick(function(){
 		var query = article.find({});
 		query.exec(function(err, articles){
-				console.log(err);
-				console.log(articles);
 				res.send(articles);
 			
 		});
