@@ -142,8 +142,11 @@ function ensureAuthenticated(req, res, next) {
 }
 
 function ensureAdmin(req, res, next) {
+	var id = 0;
+	if (req.user && req.user._id)
+		id = req.user._id;
     if (req.isAuthenticated()) { 
-		var query = user.findOne({'_id': req.user._id});
+		var query = user.findOne({'_id': id});
 		query.exec(function(err, u){
 			if (err)
 				conosole.log(err);
@@ -155,9 +158,11 @@ function ensureAdmin(req, res, next) {
 				console.log("user is admin");
 				return next(); 
 			}
+			console.log("redirect");
 			
 			res.redirect('/');
 		});	
     }
-    
+    else
+    	res.redirect('/');
 }
