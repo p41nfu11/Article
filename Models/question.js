@@ -6,8 +6,7 @@ console.log(config);
 var questionSchema = new mongoose.Schema({
 	question: String,
 	createdDate: Date,
-	answer: [String],
-	correctAnswer: String,
+	answer: Boolean,
 	article: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article' }],
 });
 

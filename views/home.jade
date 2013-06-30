@@ -1,6 +1,16 @@
 extends layout
 
 block content
+	div(class="loginButton")
+		a(class="dropdown-toggle", data-toggle="dropdown") BB
+		ul(class="dropdown-menu")
+			li
+				a(href="/logout") Log out
+			li
+				a(href="/home") Home
+			li
+				a(href="/profile") Profile
+
 	div(style="height:60px;")
 	div(data-bind="visible: !articleMode()")
 		div(class="container")

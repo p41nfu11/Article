@@ -14,6 +14,21 @@ exports.getUsers = function(req, res){
 	});
 };
 
+exports.getUser = function(req, res){
+	console.log('getUser');
+	process.nextTick(function(){
+		var query = user.findOne({ '_id': req.params.id });
+		query.exec(function(err, u){
+			if(err)
+			{
+				console.log('err trying to find user');	
+				res.send(404);
+			}
+			res.send(u);
+		});
+	});
+};
+
 exports.updateUser = function(req, res){
 	var userToUpdate = req.body;
 	console.log("update user: " + userToUpdate.name);

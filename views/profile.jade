@@ -1,0 +1,22 @@
+extends layout
+
+block content
+	div(class="container")
+		div(data-bind="with: user")
+			h1(data-bind="text: name")
+			br
+			span email 
+			span(data-bind="text: email")
+			br
+			span credits 
+			span(data-bind="text: credits")	
+			<!-- ko if: admin-->
+			br
+			span User is administrator
+			<!-- /ko -->
+
+	script(type="text/javascript")
+		parameter = {"id": '#{id}'}
+
+	script(src='/js/profile.js', type='text/javascript')	
+	

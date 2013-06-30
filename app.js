@@ -97,6 +97,7 @@ if ('development' == app.get('env')) {
 //ROUTING
 app.get('/', passLander, routes.index);
 app.get('/home', routes.home);
+app.get('/profile', routes.profile);
 
 //Admin routes
 app.get('/admin/' ,ensureAdmin, admin.index);
@@ -125,7 +126,7 @@ app.post('/article/removeArticle/', ensureAuthenticated , article.removeArticle)
 //OPS OPS OPS OPS should be ensureAdmin
 app.post('/user/updateUser/', ensureAdmin , userApi.updateUser);
 app.get('/user/users/', ensureAdmin , userApi.getUsers);
-
+app.get('/user/user/:id', ensureAuthenticated , userApi.getUser);
 
 
 //Start server
